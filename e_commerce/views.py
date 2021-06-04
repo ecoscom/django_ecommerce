@@ -36,7 +36,6 @@ def login_page(request):
     context = {
         'form': form,
     }
-    print('User logged in')
     if form.is_valid():
         print(form.cleaned_data)
         username = form.cleaned_data.get('username')
@@ -46,8 +45,8 @@ def login_page(request):
         if user is not None:
             login(request, user)
             return redirect('/')
-        else:
-            return render(request, 'auth/login.html', context)
+    
+    return render(request, 'auth/login.html', context)
 
 User = get_user_model()
 
