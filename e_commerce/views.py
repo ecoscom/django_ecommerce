@@ -8,7 +8,7 @@ def home_page(request):
         'title': 'Página principal',
         'content': 'Bem-vindo!'
     }
-    if request.user.is_authenticate:
+    if request.user.is_authenticated:
         context['premium_content'] = 'Você é um usuário Premium'
     return render(request, 'home_page.html', context)
 
