@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from .views import about_page, contact_page, home_page, login_page, register_page
 
-from products.views import ProductListView
+from products.views import ProductListView, ProductDetailView
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,6 +30,7 @@ urlpatterns = [
     path('register/', register_page),
     path('admin/', admin.site.urls),
     path('products/', ProductListView.as_view()),
+    path('products/<int:pk>', ProductDetailView.as_view()),
 ]
 
 if settings.DEBUG:
