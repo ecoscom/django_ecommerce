@@ -1,3 +1,4 @@
+from django.http.response import Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
@@ -11,13 +12,20 @@ class ProductListView(ListView):
         return super(ProductListView, self).get_context_data(*args, **kwargs)
 
 class ProductDetailView(DetailView):
-    queryset = Product.objects.all()
+    #queryset = Product.objects.all()
     template_name = 'products/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-        
+
+    def get_object(self, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        instance = Product.objects.get_by_id(pk)
+        if instance is None:
+            raise Http404('Produto não existe')
+            
+        return instance
          
 
 def product_detail_view(request):
